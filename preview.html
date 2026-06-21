@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="NusaBridge 努沙桥——面向中国企业的印尼落地企业服务网站 UI/UX 可点击原型。" />
+  <title>NusaBridge 努沙桥｜印尼企业落地服务</title>
+  <style>
+    :root{
+      --ink:#10233f;
+      --ink-2:#334863;
+      --muted:#6f8196;
+      --line:#dfe7ee;
+      --soft:#f4f7f8;
+      --paper:#ffffff;
+      --brand:#07856f;
+      --brand-2:#0da88b;
+      --brand-3:#d9f4ec;
+      --accent:#d94343;
+      --accent-soft:#fff0ef;
+      --gold:#ae7b23;
+      --shadow:0 18px 60px rgba(16,35,63,.12);
+      --shadow-sm:0 8px 26px rgba(16,35,63,.08);
+      --radius:22px;
+      --radius-sm:14px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:var(--paper);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+    }
+    body.no-scroll{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    img{max-width:100%}
+    .container{width:min(calc(100% - 40px),var(--max));margin:auto}
+    .section{padding:92px 0}
+    .section.soft{background:var(--soft)}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--brand);text-transform:uppercase}
+    .eyebrow::before{content:"";width:26px;height:2px;background:currentColor;border-radius:9px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(42px,6vw,74px);line-height:1.08;letter-spacing:-.045em;margin-bottom:24px}
+    h2{font-size:clamp(32px,4.2vw,50px);line-height:1.15;letter-spacing:-.035em;margin-bottom:18px}
+    h3{font-size:21px;line-height:1.35;margin-bottom:10px}
+    .lead{font-size:18px;color:var(--ink-2);max-width:740px}
+    .muted{color:var(--muted)}
+    .micro{font-size:12px;color:var(--muted)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:38px}
+    .section-head>div:first-child{max-width:790px}
+    .text-link{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--brand)}
+    .text-link:hover{gap:12px}
+
+    .top-note{background:var(--ink);color:#fff;font-size:12px;text-align:center;padding:8px 16px}
+    .top-note strong{color:#7ce3c9}
+    header{
+      position:sticky;top:0;z-index:80;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:saturate(160%) blur(18px);
+      border-bottom:1px solid rgba(223,231,238,.72);
+    }
+    .nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--ink);color:white;position:relative;overflow:hidden}
+    .brand-mark::before{content:"";position:absolute;width:19px;height:19px;border:5px solid #7ce3c9;border-left-color:transparent;border-radius:50%;transform:rotate(-15deg)}
+    .brand-mark::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;right:8px;top:8px}
+    .brand-name{font-weight:900;letter-spacing:-.02em;line-height:1.05}
+    .brand-sub{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.05em}
+    nav{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:700}
+    nav a{position:relative;padding:8px 0}
+    nav a::after{content:"";position:absolute;left:0;right:100%;bottom:1px;height:2px;background:var(--brand);transition:.25s}
+    nav a:hover::after{right:0}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .lang{border:0;background:transparent;color:var(--muted);font-size:13px;font-weight:800;padding:9px}
+    .btn{
+      border:0;border-radius:12px;padding:13px 18px;font-weight:850;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.2s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--brand);color:white;box-shadow:0 10px 24px rgba(7,133,111,.25)}
+    .btn-primary:hover{background:#066f5f}
+    .btn-secondary{background:var(--ink);color:white}
+    .btn-ghost{background:white;color:var(--ink);border:1px solid var(--line)}
+    .btn-light{background:var(--brand-3);color:#056c5c}
+    .btn-lg{padding:16px 22px;border-radius:14px;font-size:16px}
+    .mobile-menu{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:white;align-items:center;justify-content:center}
+    .mobile-nav{position:fixed;left:14px;right:14px;top:82px;z-index:120;background:white;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:14px;display:none}
+    .mobile-nav.show{display:block;animation:pop .18s ease-out}
+    .mobile-nav a{display:flex;justify-content:space-between;align-items:center;padding:13px 11px;border-bottom:1px solid var(--line);font-weight:850;font-size:14px}
+    .mobile-nav a:last-of-type{border-bottom:0}
+    .mobile-nav .btn{width:100%;margin-top:10px}
+
+    .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#f4fbf8 0%,#fff 74%);padding:82px 0 56px}
+    .hero::before{content:"";position:absolute;right:-190px;top:-230px;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle,#c8f3e7 0%,rgba(200,243,231,0) 68%)}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:70px;align-items:center}
+    .hero-copy{position:relative;z-index:2}
+    .hero h1 span{color:var(--brand)}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0 28px}
+    .trust-row{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+    .trust-row span{display:flex;gap:7px;align-items:center}
+    .tick{width:18px;height:18px;border-radius:50%;background:var(--brand-3);color:var(--brand);display:grid;place-items:center;font-size:11px;font-weight:900}
+    .hero-visual{position:relative;min-height:540px}
+    .map-card{position:absolute;inset:28px 0 0 18px;background:var(--ink);border-radius:32px;box-shadow:var(--shadow);overflow:hidden;color:white;padding:30px}
+    .map-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 18%,rgba(34,194,156,.27),transparent 29%),linear-gradient(140deg,transparent 0 49%,rgba(255,255,255,.04) 50% 51%,transparent 52% 100%)}
+    .map-head{position:relative;display:flex;align-items:center;justify-content:space-between;z-index:2}
+    .signal{display:flex;gap:5px}
+    .signal i{width:7px;height:7px;background:#52d1b2;border-radius:50%;display:block;box-shadow:0 0 18px #52d1b2}
+    .signal i:nth-child(2){opacity:.65}.signal i:nth-child(3){opacity:.35}
+    .route-map{position:relative;height:360px;margin-top:25px}
+    .route-line{position:absolute;left:43px;right:45px;top:184px;height:2px;background:linear-gradient(90deg,#52d1b2,rgba(82,209,178,.15));transform:rotate(-7deg);transform-origin:left center}
+    .route-line::after{content:"";position:absolute;inset:-2px 0;border-top:1px dashed rgba(255,255,255,.18)}
+    .city{position:absolute;display:flex;flex-direction:column;gap:4px;z-index:3}
+    .city-dot{width:18px;height:18px;border-radius:50%;background:#fff;border:5px solid #53d0b3;box-shadow:0 0 0 8px rgba(83,208,179,.12)}
+    .city strong{font-size:12px}.city small{color:rgba(255,255,255,.58);font-size:10px}
+    .city.sz{left:37px;top:174px}.city.jkt{right:48px;top:121px}
+    .milestone{position:absolute;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:11px 13px;font-size:11px;backdrop-filter:blur(8px);z-index:4}
+    .milestone.m1{left:116px;top:102px}.milestone.m2{right:105px;top:227px}.milestone.m3{left:156px;top:290px}
+    .mini-dashboard{position:absolute;z-index:6;right:-18px;bottom:2px;width:270px;background:white;color:var(--ink);border-radius:20px;box-shadow:0 18px 55px rgba(6,20,38,.25);padding:20px}
+    .mini-dashboard .status{display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:14px}
+    .progress{height:8px;background:#e9eef2;border-radius:99px;overflow:hidden}.progress i{display:block;width:68%;height:100%;background:var(--brand);border-radius:99px}
+    .task{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3;font-size:12px}
+    .task:last-child{border:0}.task-icon{width:28px;height:28px;border-radius:9px;background:var(--brand-3);color:var(--brand);display:grid;place-items:center;font-weight:900}
+    .floating-proof{position:absolute;z-index:7;left:-22px;bottom:76px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);padding:14px 16px;display:flex;align-items:center;gap:12px;font-size:12px}
+    .avatar-stack{display:flex}.avatar-stack i{width:28px;height:28px;border-radius:50%;background:linear-gradient(145deg,#cad5df,#f9fafb);border:2px solid white;margin-left:-8px}.avatar-stack i:first-child{margin-left:0}
+
+    .proof-strip{padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .proof-grid{display:grid;grid-template-columns:1.2fr repeat(4,1fr);gap:22px;align-items:center}
+    .proof-label{font-size:12px;color:var(--muted);font-weight:800}
+    .proof-item{display:flex;align-items:center;gap:10px;font-weight:850;font-size:13px}
+    .proof-symbol{width:32px;height:32px;border-radius:9px;background:var(--soft);display:grid;place-items:center;color:var(--brand)}
+
+    .pain-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:68px;align-items:start}
+    .pain-sticky{position:sticky;top:112px}
+    .pain-list{display:grid;gap:14px}
+    .pain-item{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;border:1px solid var(--line);border-radius:18px;padding:20px;background:white;transition:.2s}
+    .pain-item:hover{transform:translateX(-4px);box-shadow:var(--shadow-sm);border-color:#bfded5}
+    .pain-number{width:46px;height:46px;border-radius:14px;background:var(--soft);display:grid;place-items:center;color:var(--brand);font-weight:900}
+    .pain-item p{margin:2px 0 0;color:var(--muted);font-size:13px}
+    .pain-arrow{color:var(--muted);font-size:22px}
+
+    .stage-nav{display:flex;gap:8px;background:var(--soft);padding:6px;border-radius:15px;width:max-content;max-width:100%;overflow:auto;margin-bottom:25px}
+    .stage-btn{border:0;background:transparent;padding:12px 18px;border-radius:10px;font-weight:850;color:var(--muted);white-space:nowrap}
+    .stage-btn.active{background:white;color:var(--ink);box-shadow:0 4px 15px rgba(16,35,63,.08)}
+    .stage-panel{display:none;grid-template-columns:1fr 1fr;gap:18px}
+    .stage-panel.active{display:grid}
+    .stage-card{border:1px solid var(--line);border-radius:20px;padding:25px;background:white;position:relative;overflow:hidden}
+    .stage-card.featured{background:var(--ink);color:white;border-color:var(--ink)}
+    .stage-card .tag{display:inline-flex;padding:5px 9px;border-radius:99px;background:var(--brand-3);color:var(--brand);font-size:11px;font-weight:900;margin-bottom:15px}
+    .stage-card.featured .tag{background:rgba(82,209,178,.15);color:#77e0c7}
+    .stage-card p{font-size:14px;color:var(--muted)}
+    .stage-card.featured p{color:rgba(255,255,255,.66)}
+    .deliverables{display:grid;gap:9px;margin:20px 0}
+    .deliverables span{display:flex;gap:9px;font-size:13px;align-items:start}
+    .stage-card.featured .deliverables span{color:rgba(255,255,255,.86)}
+
+    .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .service-card{border:1px solid var(--line);border-radius:20px;padding:24px;background:white;min-height:252px;display:flex;flex-direction:column;transition:.22s;position:relative;overflow:hidden}
+    .service-card::before{content:"";position:absolute;left:0;right:100%;top:0;height:4px;background:var(--brand);transition:.28s}
+    .service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-sm);border-color:#c7ded7}
+    .service-card:hover::before{right:0}
+    .service-icon{width:46px;height:46px;border-radius:13px;background:var(--brand-3);color:var(--brand);display:grid;place-items:center;font-size:21px;font-weight:900;margin-bottom:20px}
+    .service-card p{font-size:13px;color:var(--muted);flex:1}
+    .service-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.service-meta span{font-size:10px;font-weight:850;background:var(--soft);padding:5px 8px;border-radius:99px;color:var(--ink-2)}
+    .service-open{border:0;background:transparent;color:var(--brand);font-weight:900;padding:0;text-align:left}
+
+    .diagnosis{background:linear-gradient(135deg,var(--ink),#17385b);color:white;border-radius:32px;padding:48px;display:grid;grid-template-columns:1.1fr .9fr;gap:55px;position:relative;overflow:hidden}
+    .diagnosis::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-170px;bottom:-240px;border:80px solid rgba(81,208,178,.09)}
+    .diagnosis .lead{color:rgba(255,255,255,.68)}
+    .diagnosis-points{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:28px 0}
+    .diagnosis-points span{display:flex;gap:9px;font-size:13px;color:rgba(255,255,255,.86)}
+    .sample-result{position:relative;z-index:2;background:white;color:var(--ink);border-radius:22px;padding:24px;box-shadow:0 22px 65px rgba(0,0,0,.25);transform:rotate(1.2deg)}
+    .sample-result .score{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:16px}
+    .score-badge{width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--brand) 0 82%,#e7eef0 82% 100%);display:grid;place-items:center;position:relative}
+    .score-badge::before{content:"";width:41px;height:41px;border-radius:50%;background:white;position:absolute}.score-badge strong{position:relative;font-size:13px}
+    .recommendation{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f3;font-size:12px}.recommendation:last-child{border:0}.recommendation i{width:26px;height:26px;border-radius:8px;background:var(--brand-3);color:var(--brand);display:grid;place-items:center;font-style:normal;font-weight:900;flex:0 0 auto}
+
+    .case-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+    .chip{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:850;color:var(--muted)}
+    .chip.active,.chip:hover{background:var(--ink);border-color:var(--ink);color:white}
+    .case-grid{display:grid;grid-template-columns:1.15fr .85fr .85fr;gap:16px}
+    .case-card{min-height:290px;border-radius:22px;overflow:hidden;position:relative;background:linear-gradient(145deg,#edf4f6,#dbe8e8);padding:25px;display:flex;flex-direction:column;justify-content:flex-end}
+    .case-card.large{grid-row:span 2;min-height:596px;background:linear-gradient(165deg,#153153 0%,#0a7c69 100%);color:white}
+    .case-card:nth-child(3){background:linear-gradient(145deg,#fff2e4,#f3d4b5)}
+    .case-card:nth-child(4){background:linear-gradient(145deg,#e6e8ff,#ced5f1)}
+    .case-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 15%,rgba(255,255,255,.55),transparent 22%)}
+    .case-card.large::after{content:"ID";position:absolute;right:-18px;top:52px;font-size:180px;line-height:1;font-weight:950;color:rgba(255,255,255,.05)}
+    .case-content{position:relative;z-index:2}
+    .case-kicker{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+    .case-card.large .case-kicker{color:#79dfc8}
+    .case-card p{font-size:13px;color:var(--ink-2);margin-bottom:0}.case-card.large p{color:rgba(255,255,255,.68)}
+    .case-metrics{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.case-metrics span{font-size:11px;border-radius:99px;padding:6px 9px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.14)}
+
+    .trust-center{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+    .trust-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .trust-card{border:1px solid var(--line);border-radius:18px;padding:20px;background:white}
+    .trust-card:nth-child(1){grid-column:span 2;background:var(--brand-3);border-color:#b7e7da}
+    .trust-card .big{font-size:31px;font-weight:950;letter-spacing:-.04em;color:var(--brand)}
+    .trust-card p{font-size:12px;color:var(--muted);margin-bottom:0}
+    .trust-checklist{display:grid;gap:13px;margin-top:28px}
+    .trust-checklist div{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start}
+    .trust-checklist i{font-style:normal;width:24px;height:24px;border-radius:8px;background:var(--brand-3);color:var(--brand);display:grid;place-items:center;font-size:11px;font-weight:900}
+    .trust-checklist p{margin-bottom:0;font-size:13px;color:var(--ink-2)}
+
+    .insight-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:16px}
+    .insight-card{border:1px solid var(--line);border-radius:20px;padding:22px;background:white;min-height:250px;display:flex;flex-direction:column;transition:.2s}
+    .insight-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+    .insight-card.featured{background:var(--ink);color:white}
+    .insight-type{font-size:10px;font-weight:900;color:var(--brand);letter-spacing:.08em;text-transform:uppercase;margin-bottom:35px}
+    .insight-card.featured .insight-type{color:#79dfc8}
+    .insight-card p{color:var(--muted);font-size:13px}.insight-card.featured p{color:rgba(255,255,255,.62)}
+    .insight-bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
+
+    .cta-wrap{padding:0 0 92px}
+    .cta{border-radius:30px;background:#ecf9f5;padding:48px 52px;display:flex;justify-content:space-between;gap:35px;align-items:center;border:1px solid #cbeadd}
+    .cta h2{font-size:clamp(28px,4vw,43px);margin-bottom:8px}
+    .cta-actions{display:flex;gap:10px;flex:0 0 auto;flex-wrap:wrap}
+
+    footer{background:var(--ink);color:white;padding:58px 0 30px}
+    .footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px}
+    .footer-grid h4{font-size:13px;margin:0 0 16px}.footer-grid a{display:block;color:rgba(255,255,255,.58);font-size:12px;margin:9px 0}.footer-grid a:hover{color:white}
+    .footer-brand p{font-size:12px;color:rgba(255,255,255,.52);max-width:360px;margin-top:16px}
+    .footer-bottom{display:flex;justify-content:space-between;gap:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px;margin-top:40px;color:rgba(255,255,255,.42);font-size:10px}
+
+    .floating-contact{position:fixed;right:24px;bottom:24px;z-index:70;display:flex;flex-direction:column;align-items:end;gap:10px}
+    .contact-pop{display:none;width:310px;background:white;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px}
+    .contact-pop.show{display:block;animation:pop .18s ease-out}
+    @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+    .contact-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.contact-head button{border:0;background:transparent;font-size:20px;color:var(--muted)}
+    .contact-option{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:var(--soft);margin-top:9px}
+    .contact-option i{width:38px;height:38px;border-radius:11px;background:white;display:grid;place-items:center;font-style:normal;font-weight:900;color:var(--brand)}
+    .contact-option p{margin:0;font-size:11px;color:var(--muted)}
+    .contact-fab{width:58px;height:58px;border:0;border-radius:18px;background:var(--brand);color:white;box-shadow:0 14px 34px rgba(7,133,111,.34);font-size:24px;display:grid;place-items:center}
+
+    .overlay{position:fixed;inset:0;background:rgba(5,18,34,.55);backdrop-filter:blur(7px);z-index:150;display:none;padding:28px;overflow:auto}
+    .overlay.show{display:flex;align-items:center;justify-content:center}
+    .modal{width:min(760px,100%);max-height:min(820px,calc(100vh - 30px));overflow:auto;background:white;border-radius:26px;box-shadow:0 30px 120px rgba(0,0,0,.28);position:relative}
+    .modal-head{padding:26px 28px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);z-index:5}
+    .modal-head-row{display:flex;align-items:center;justify-content:space-between;gap:20px}.modal-close{border:0;background:var(--soft);width:38px;height:38px;border-radius:12px;font-size:20px;color:var(--muted)}
+    .modal-progress{display:flex;gap:5px;margin-top:17px}.modal-progress i{height:5px;background:#e8eef1;border-radius:99px;flex:1}.modal-progress i.done{background:var(--brand)}
+    .modal-body{padding:28px}
+    .question{display:none}.question.active{display:block}
+    .question h2{font-size:29px;margin-bottom:8px}.question .desc{color:var(--muted);font-size:13px;margin-bottom:22px}
+    .option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .option{border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left;background:white;display:flex;gap:13px;align-items:center;min-height:76px;color:var(--ink);font-weight:850}
+    .option:hover,.option.selected{border-color:var(--brand);background:#f4fcf9;box-shadow:0 0 0 3px rgba(7,133,111,.08)}
+    .option i{width:38px;height:38px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-style:normal;color:var(--brand);font-size:18px}
+    .option small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:3px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:span 2}.field label{font-size:12px;font-weight:850}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:12px;padding:13px 14px;outline:none;background:white}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(7,133,111,.08)}
+    .modal-actions{display:flex;justify-content:space-between;gap:12px;margin-top:26px}.modal-actions .right{display:flex;gap:10px}
+    .result-summary{background:var(--soft);border-radius:18px;padding:18px;margin-bottom:18px;display:flex;justify-content:space-between;gap:20px;align-items:center}.result-pill{display:inline-flex;padding:6px 10px;border-radius:99px;background:var(--brand-3);color:var(--brand);font-size:11px;font-weight:900}
+    .result-list{display:grid;gap:11px}.result-item{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:14px}.result-item i{width:36px;height:36px;background:var(--brand-3);color:var(--brand);border-radius:11px;display:grid;place-items:center;font-style:normal;font-weight:900}.result-item p{margin:0;font-size:11px;color:var(--muted)}.priority{font-size:10px;font-weight:900;background:var(--accent-soft);color:var(--accent);padding:5px 8px;border-radius:99px}
+    .privacy-note{font-size:10px;color:var(--muted);margin-top:12px}
+
+    .drawer-overlay{position:fixed;inset:0;background:rgba(4,17,33,.45);z-index:140;display:none}
+    .drawer-overlay.show{display:block}
+    .drawer{position:fixed;right:0;top:0;bottom:0;width:min(520px,100%);background:white;z-index:160;box-shadow:-30px 0 90px rgba(0,0,0,.22);transform:translateX(103%);transition:.3s ease;overflow:auto}
+    .drawer.show{transform:none}
+    .drawer-top{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line);z-index:4}.drawer-close{width:38px;height:38px;border:0;border-radius:12px;background:var(--soft);font-size:20px;color:var(--muted)}
+    .drawer-body{padding:26px}.drawer-icon{width:55px;height:55px;border-radius:16px;background:var(--brand-3);color:var(--brand);display:grid;place-items:center;font-size:25px;font-weight:900;margin-bottom:18px}.drawer-body h2{font-size:34px}.drawer-section{padding:21px 0;border-top:1px solid var(--line)}.drawer-section h4{font-size:13px;margin:0 0 12px}.drawer-list{display:grid;gap:9px}.drawer-list span{display:flex;gap:9px;font-size:13px;color:var(--ink-2)}.drawer-warning{background:#fff7e8;border:1px solid #f3dfb4;border-radius:15px;padding:14px;font-size:11px;color:#74541c}
+
+    .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,25px);background:var(--ink);color:white;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow);font-size:12px;z-index:250;opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+    @media (max-width:1020px){
+      nav{display:none}.mobile-menu{display:flex}.nav-actions .lang,.nav-actions>.btn{display:none}
+      .hero-grid{grid-template-columns:1fr;gap:35px}.hero-visual{min-height:500px;max-width:650px;width:100%;margin:auto}.hero-copy{max-width:780px}
+      .proof-grid{grid-template-columns:1fr 1fr 1fr}.proof-label{grid-column:span 3}
+      .pain-grid,.trust-center{grid-template-columns:1fr;gap:36px}.pain-sticky{position:static}
+      .service-grid{grid-template-columns:1fr 1fr}.diagnosis{grid-template-columns:1fr;gap:30px}
+      .case-grid{grid-template-columns:1fr 1fr}.case-card.large{grid-row:auto;grid-column:span 2;min-height:420px}
+      .insight-grid{grid-template-columns:1fr 1fr}.insight-card.featured{grid-column:span 2}
+      .footer-grid{grid-template-columns:1.5fr 1fr 1fr}.footer-grid>div:last-child{display:none}
+    }
+    @media (max-width:720px){
+      .container{width:min(calc(100% - 28px),var(--max))}.section{padding:68px 0}.top-note{font-size:10px}
+      .nav{height:66px}.brand-sub{display:none}
+      .hero{padding:62px 0 38px}.hero h1{font-size:43px}.hero-actions .btn{width:100%}.trust-row{gap:10px 15px}
+      .hero-visual{min-height:440px}.map-card{inset:14px 0 0 0;padding:21px;border-radius:24px}.mini-dashboard{width:245px;right:-5px}.floating-proof{display:none}.milestone.m1{left:73px}.milestone.m3{left:85px}.city.jkt{right:28px}.city.sz{left:17px}
+      .proof-grid{grid-template-columns:1fr 1fr;gap:13px}.proof-label{grid-column:span 2}.proof-item{font-size:11px}
+      .section-head{align-items:start;flex-direction:column;margin-bottom:28px}.section-head .text-link{display:none}
+      .pain-item{grid-template-columns:44px 1fr;padding:16px}.pain-arrow{display:none}.pain-number{width:42px;height:42px}
+      .stage-panel{grid-template-columns:1fr}.service-grid{grid-template-columns:1fr}.service-card{min-height:auto}
+      .diagnosis{padding:29px 21px;border-radius:24px}.diagnosis-points{grid-template-columns:1fr}.sample-result{transform:none}
+      .case-grid{grid-template-columns:1fr}.case-card.large{grid-column:auto;min-height:430px}.case-card{min-height:260px}
+      .trust-cards{grid-template-columns:1fr}.trust-card:nth-child(1){grid-column:auto}
+      .insight-grid{grid-template-columns:1fr}.insight-card.featured{grid-column:auto}
+      .cta{padding:32px 22px;align-items:start;flex-direction:column}.cta-actions{width:100%}.cta-actions .btn{flex:1}
+      .footer-grid{grid-template-columns:1fr 1fr}.footer-brand{grid-column:span 2}.footer-bottom{flex-direction:column}
+      .floating-contact{right:14px;bottom:14px}.contact-pop{width:min(310px,calc(100vw - 28px))}
+      .overlay{padding:8px}.modal{border-radius:21px;max-height:calc(100vh - 16px)}.modal-head,.modal-body{padding:20px}.option-grid,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-actions{align-items:stretch}.modal-actions .right{flex:1}.modal-actions .right .btn{flex:1}.result-item{grid-template-columns:38px 1fr}.priority{grid-column:2}
+    }
+    @media (max-width:420px){
+      h2{font-size:34px}.hero h1{font-size:39px}.mini-dashboard{width:222px}.milestone{font-size:9px}.map-card{padding:17px}.route-map{height:330px}.map-card{height:418px}.hero-visual{min-height:430px}
+    }
+  </style>
+</head>
+<body>
+  <div class="top-note">可点击交互原型 · 品牌名、案例与数据均为演示占位｜核心策略：<strong>先诊断，再销售</strong></div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="NusaBridge 首页">
+        <span class="brand-mark"></span>
+        <span><span class="brand-name">NusaBridge 努沙桥</span><br><span class="brand-sub">INDONESIA BUSINESS DESK</span></span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#services">企业服务</a>
+        <a href="#journey">落地方案</a>
+        <a href="#cases">客户案例</a>
+        <a href="#insights">印尼指南</a>
+        <a href="#trust">关于我们</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang" type="button" data-toast="多语言版本建议：简中为主，英文/印尼语用于本地背书与交付团队入口">中 / EN / ID</button>
+        <button class="btn btn-primary" type="button" data-open-assessment>免费评估</button>
+        <button class="mobile-menu" type="button" aria-label="打开菜单" aria-expanded="false" data-open-mobile-nav>☰</button>
+      </div>
+    </div>
+  </header>
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="#services">企业服务 <span>→</span></a>
+    <a href="#journey">落地方案 <span>→</span></a>
+    <a href="#cases">客户案例 <span>→</span></a>
+    <a href="#insights">印尼指南 <span>→</span></a>
+    <a href="#trust">关于我们 <span>→</span></a>
+    <button class="btn btn-primary" type="button" data-open-assessment>免费评估</button>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">面向中国企业的印尼落地服务</span>
+          <h1>把复杂的印尼落地，变成一条<span>清晰可追踪</span>的路径。</h1>
+          <p class="lead">从公司设立、税务合规、行业许可、银行开户，到进出口与持续运营。中国顾问负责沟通，印尼本地团队负责执行。</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" type="button" data-open-assessment>30秒获取落地方案 <span>→</span></button>
+            <a class="btn btn-ghost btn-lg" href="#journey">查看完整服务地图</a>
+          </div>
+          <div class="trust-row">
+            <span><i class="tick">✓</i>中文顾问一对一</span>
+            <span><i class="tick">✓</i>材料预审与风险提示</span>
+            <span><i class="tick">✓</i>里程碑进度可视</span>
+            <span><i class="tick">✓</i>费用边界提前说明</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="跨境项目进度可视化示意">
+          <div class="map-card">
+            <div class="map-head">
+              <div><strong>Project ID-2026-018</strong><div style="font-size:10px;color:rgba(255,255,255,.52)">中国 → 印度尼西亚</div></div>
+              <div class="signal"><i></i><i></i><i></i></div>
+            </div>
+            <div class="route-map">
+              <div class="route-line"></div>
+              <div class="city sz"><span class="city-dot"></span><strong>中国总部</strong><small>资料准备</small></div>
+              <div class="city jkt"><span class="city-dot"></span><strong>Jakarta</strong><small>本地执行</small></div>
+              <div class="milestone m1">✓ 主体与股权预审</div>
+              <div class="milestone m2">进行中 · 行业许可</div>
+              <div class="milestone m3">待启动 · 银行KYC</div>
+            </div>
+          </div>
+          <div class="mini-dashboard">
+            <div class="status"><strong>项目进度</strong><span style="color:var(--brand);font-weight:900">68%</span></div>
+            <div class="progress"><i></i></div>
+            <div style="margin-top:13px">
+              <div class="task"><span class="task-icon">✓</span><span><strong>公司主体设立</strong><br><small class="muted">文件已归档</small></span></div>
+              <div class="task"><span class="task-icon">3</span><span><strong>行业许可办理</strong><br><small class="muted">等待补充经营场景</small></span></div>
+              <div class="task"><span class="task-icon">→</span><span><strong>账户开户预审</strong><br><small class="muted">下一里程碑</small></span></div>
+            </div>
+          </div>
+          <div class="floating-proof"><span class="avatar-stack"><i></i><i></i><i></i></span><span><strong>双地协同服务组</strong><br><span class="muted">中文顾问 · 法务 · 税务 · 本地执行</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-strip">
+      <div class="container proof-grid">
+        <div class="proof-label">每一个项目都应该看得见：</div>
+        <div class="proof-item"><span class="proof-symbol">①</span>服务范围</div>
+        <div class="proof-item"><span class="proof-symbol">②</span>材料清单</div>
+        <div class="proof-item"><span class="proof-symbol">③</span>办理节点</div>
+        <div class="proof-item"><span class="proof-symbol">④</span>风险与费用</div>
+      </div>
+    </section>
+
+    <section class="section" id="needs">
+      <div class="container pain-grid">
+        <div class="pain-sticky">
+          <span class="eyebrow">不是“办证”，而是降低落地不确定性</span>
+          <h2>中国团队真正担心的，不止是公司能不能注册。</h2>
+          <p class="lead">网站第一屏就要回应决策者心中的风险：做什么主体、能否开展业务、钱能不能进出、合规能否持续、出问题谁负责。</p>
+          <button class="btn btn-light" type="button" data-open-assessment>识别我的风险点 →</button>
+        </div>
+        <div class="pain-list">
+          <article class="pain-item"><span class="pain-number">01</span><div><h3>政策与行业准入看不懂</h3><p>同一项业务可能涉及投资、经营范围、行业许可、产品认证和地方执行。</p></div><span class="pain-arrow">↗</span></article>
+          <article class="pain-item"><span class="pain-number">02</span><div><h3>供应商报价无法比较</h3><p>服务费、政府费、第三方费、翻译公证费混在一起，低价后追加。</p></div><span class="pain-arrow">↗</span></article>
+          <article class="pain-item"><span class="pain-number">03</span><div><h3>注册完成却无法真正经营</h3><p>主体只是起点；开户、税务、用工、进口、认证任一环节都可能卡住。</p></div><span class="pain-arrow">↗</span></article>
+          <article class="pain-item"><span class="pain-number">04</span><div><h3>国内团队与本地执行断层</h3><p>文件反复、语言误差、责任不清，管理层很难知道项目现在卡在哪里。</p></div><span class="pain-arrow">↗</span></article>
+          <article class="pain-item"><span class="pain-number">05</span><div><h3>最怕“承诺包办”，最后无法交付</h3><p>开户、许可和认证均有审核条件，专业服务应先做可行性预评估。</p></div><span class="pain-arrow">↗</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="journey">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">按企业阶段组织服务，而不是堆砌项目</span><h2>从“准备进入”到“持续经营”的完整服务地图</h2><p class="lead">用户先选择自己所处阶段，再看到当前必须做、可以后做与高风险事项，降低认知负担。</p></div>
+          <a class="text-link" href="#services">查看全部服务 <span>→</span></a>
+        </div>
+        <div class="stage-nav" role="tablist">
+          <button class="stage-btn active" type="button" data-stage="before">进入前评估</button>
+          <button class="stage-btn" type="button" data-stage="setup">公司设立</button>
+          <button class="stage-btn" type="button" data-stage="launch">业务启动</button>
+          <button class="stage-btn" type="button" data-stage="operate">持续运营</button>
+          <button class="stage-btn" type="button" data-stage="expand">扩张与融资</button>
+        </div>
+        <div class="stage-panel active" data-stage-panel="before">
+          <article class="stage-card featured"><span class="tag">建议第一步</span><h3>印尼落地可行性诊断</h3><p>基于行业、产品、股权结构、交易路径与用工计划，形成一份落地路线图。</p><div class="deliverables"><span>✓ 推荐主体与经营范围</span><span>✓ 外资准入与许可清单</span><span>✓ 关键风险与前置条件</span><span>✓ 费用构成与阶段排期</span></div><button class="btn btn-light" type="button" data-open-assessment>开始评估</button></article>
+          <article class="stage-card"><span class="tag">决策支持</span><h3>市场进入与选址</h3><p>适用于尚未确定进入方式、城市、园区或合作模式的团队。</p><div class="deliverables"><span>✓ 进入模式比较</span><span>✓ 供应链与渠道初筛</span><span>✓ 园区/办公室路径</span></div><button class="service-open" type="button" data-service="market">查看交付物 →</button></article>
+        </div>
+        <div class="stage-panel" data-stage-panel="setup">
+          <article class="stage-card featured"><span class="tag">主体搭建</span><h3>公司注册与投资架构</h3><p>不只完成设立，还要校验后续开户、开票、雇员与经营许可的可衔接性。</p><div class="deliverables"><span>✓ 股东与治理结构</span><span>✓ 名称、章程与登记</span><span>✓ 基础税务身份</span><span>✓ 设立文件归档</span></div><button class="service-open" type="button" data-service="company">查看交付物 →</button></article>
+          <article class="stage-card"><span class="tag">基础设施</span><h3>办公地址与银行开户预审</h3><p>提前核验业务实质、资金来源、董事到场等开户条件，避免“注册后才发现开不了”。</p><div class="deliverables"><span>✓ KYC材料清单</span><span>✓ 银行匹配与预约</span><span>✓ 开户问答预演</span></div><button class="service-open" type="button" data-service="bank">查看交付物 →</button></article>
+        </div>
+        <div class="stage-panel" data-stage-panel="launch">
+          <article class="stage-card featured"><span class="tag">经营就绪</span><h3>行业许可与产品认证</h3><p>将经营范围、产品、渠道与监管要求串起来，避免只拿到主体却不能销售。</p><div class="deliverables"><span>✓ 行业许可路径</span><span>✓ 产品合规与标签</span><span>✓ 清真/标准等认证协同</span><span>✓ 上线前合规检查</span></div><button class="service-open" type="button" data-service="license">查看交付物 →</button></article>
+          <article class="stage-card"><span class="tag">跨境贸易</span><h3>进出口与海关落地</h3><p>覆盖进口主体、商品编码、许可要求、报关资料与本地交付链路。</p><div class="deliverables"><span>✓ 商品与监管预审</span><span>✓ 进口资质及系统配置</span><span>✓ 报关资料模板</span></div><button class="service-open" type="button" data-service="trade">查看交付物 →</button></article>
+        </div>
+        <div class="stage-panel" data-stage-panel="operate">
+          <article class="stage-card featured"><span class="tag">长期合规</span><h3>财税、申报与公司秘书</h3><p>将月度、季度、年度任务放进合规日历，并通过单一窗口持续跟进。</p><div class="deliverables"><span>✓ 记账与税务申报</span><span>✓ 法定报告与变更</span><span>✓ 合规预警</span><span>✓ 管理层月报</span></div><button class="service-open" type="button" data-service="tax">查看交付物 →</button></article>
+          <article class="stage-card"><span class="tag">人员与组织</span><h3>签证、用工与薪酬</h3><p>匹配外籍员工与本地员工的用工路径、合同、社保和薪税管理。</p><div class="deliverables"><span>✓ 岗位与签证预审</span><span>✓ 雇佣文件</span><span>✓ 薪酬与合规管理</span></div><button class="service-open" type="button" data-service="hr">查看交付物 →</button></article>
+        </div>
+        <div class="stage-panel" data-stage-panel="expand">
+          <article class="stage-card featured"><span class="tag">规模化</span><h3>股权变更、融资与资金方案</h3><p>面向增资、股权转让、集团重组、融资尽调及本地金融资源对接。</p><div class="deliverables"><span>✓ 交易结构建议</span><span>✓ 公司文件与审批</span><span>✓ 财税影响分析</span><span>✓ 尽调资料室</span></div><button class="service-open" type="button" data-service="finance">查看交付物 →</button></article>
+          <article class="stage-card"><span class="tag">政策资源</span><h3>园区、激励与产业资源</h3><p>根据项目类型、地点与投资计划筛选可适用的园区政策、产业资源和支持计划。</p><div class="deliverables"><span>✓ 适用性初筛</span><span>✓ 申报材料协调</span><span>✓ 园区与机构对接</span></div><button class="service-open" type="button" data-service="incentive">查看交付物 →</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">服务中心</span><h2>用户点击的不是一个名词，而是一个明确结果。</h2><p class="lead">每个服务详情页统一展示：适合谁、交付物、前置条件、办理节点、费用边界、常见卡点和不承诺事项。</p></div></div>
+        <div class="service-grid">
+          <article class="service-card"><div class="service-icon">企</div><h3>公司设立与架构</h3><p>主体选择、股权与治理、公司登记、变更、注销及基础合规衔接。</p><div class="service-meta"><span>进入印尼</span><span>主体搭建</span></div><button class="service-open" type="button" data-service="company">查看服务详情 →</button></article>
+          <article class="service-card"><div class="service-icon">税</div><h3>财税与申报</h3><p>记账、税务登记与申报、年度合规、税务健康检查及跨境交易支持。</p><div class="service-meta"><span>持续经营</span><span>合规日历</span></div><button class="service-open" type="button" data-service="tax">查看服务详情 →</button></article>
+          <article class="service-card"><div class="service-icon">证</div><h3>许可与产品认证</h3><p>行业许可、产品注册、标签与标准、清真等认证路径协调。</p><div class="service-meta"><span>产品上市</span><span>行业准入</span></div><button class="service-open" type="button" data-service="license">查看服务详情 →</button></article>
+          <article class="service-card"><div class="service-icon">银</div><h3>银行开户与资金服务</h3><p>KYC预审、材料准备、银行匹配、开户协同与后续资金管理支持。</p><div class="service-meta"><span>资金闭环</span><span>预评估</span></div><button class="service-open" type="button" data-service="bank">查看服务详情 →</button></article>
+          <article class="service-card"><div class="service-icon">关</div><h3>进出口与海关</h3><p>进口主体、商品监管条件、许可、报关资料与本地供应链协同。</p><div class="service-meta"><span>贸易落地</span><span>商品预审</span></div><button class="service-open" type="button" data-service="trade">查看服务详情 →</button></article>
+          <article class="service-card"><div class="service-icon">人</div><h3>签证、用工与薪酬</h3><p>外籍与本地员工的签证、合同、社保、薪酬与劳动合规支持。</p><div class="service-meta"><span>团队落地</span><span>雇佣合规</span></div><button class="service-open" type="button" data-service="hr">查看服务详情 →</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="diagnosis">
+          <div>
+            <span class="eyebrow" style="color:#74dfc6">智能需求诊断</span>
+            <h2>先给用户一个有价值的答案，再索取联系方式。</h2>
+            <p class="lead">完成4个选择，即时生成“推荐服务 + 风险项 + 下一步材料”。结果页只展示概要，留下联系方式后获取完整清单。</p>
+            <div class="diagnosis-points"><span>✓ 降低首次咨询门槛</span><span>✓ 自动识别高意向线索</span><span>✓ 销售接待前已有上下文</span><span>✓ 不用一上来问“预算多少”</span></div>
+            <button class="btn btn-light btn-lg" type="button" data-open-assessment>体验需求诊断</button>
+          </div>
+          <div class="sample-result">
+            <div class="score"><div><span class="result-pill">示例诊断结果</span><h3 style="margin:8px 0 0">消费品进口与本地销售</h3></div><div class="score-badge"><strong>82%</strong></div></div>
+            <div class="recommendation"><i>1</i><div><strong>主体与经营范围预审</strong><br><span class="muted">判断公司主体与业务链路是否匹配</span></div></div>
+            <div class="recommendation"><i>2</i><div><strong>进口及产品监管清单</strong><br><span class="muted">按产品、渠道和成分建立许可地图</span></div></div>
+            <div class="recommendation"><i>3</i><div><strong>税务与资金路径设计</strong><br><span class="muted">明确交易、开票、付款与利润汇回逻辑</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="cases">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">案例不展示“客户很满意”，而展示问题如何被解决</span><h2>按行业与落地场景查看案例</h2><p class="lead">脱敏案例应写清：初始状态、关键难点、方案、项目里程碑、客户配合项和最终交付。</p></div></div>
+        <div class="case-filters"><button class="chip active" data-filter="all">全部</button><button class="chip" data-filter="ecommerce">跨境电商</button><button class="chip" data-filter="manufacturing">制造业</button><button class="chip" data-filter="consumer">消费品</button><button class="chip" data-filter="tech">互联网/科技</button></div>
+        <div class="case-grid">
+          <article class="case-card large" data-case="consumer"><div class="case-content"><span class="case-kicker">消费品 · 进口销售</span><h3 style="font-size:31px">从“先注册一家公司”转向“先打通产品上市路径”</h3><p>团队原计划先设立主体，诊断后发现产品认证、进口责任主体与渠道合同需要同步设计，项目因此改为四条工作流并行推进。</p><div class="case-metrics"><span>主体架构</span><span>产品合规</span><span>进口链路</span><span>税务模型</span></div></div></article>
+          <article class="case-card" data-case="manufacturing"><div class="case-content"><span class="case-kicker">制造业 · 工厂筹备</span><h3>把园区选择与许可、用工、物流放在同一张决策表里</h3><p>避免只按租金选择地点，后续再为许可和人力成本返工。</p></div></article>
+          <article class="case-card" data-case="ecommerce"><div class="case-content"><span class="case-kicker">跨境电商 · 本地化</span><h3>建立本地收款、开票、仓配与税务闭环</h3><p>从销售渠道倒推主体、账户和履约结构。</p></div></article>
+          <article class="case-card" data-case="tech"><div class="case-content"><span class="case-kicker">科技企业 · 区域运营</span><h3>中国总部与印尼团队的双语合规协作机制</h3><p>通过月度合规日历和管理层报告降低跨境管理成本。</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="container trust-center">
+        <div>
+          <span class="eyebrow">信任中心</span>
+          <h2>让客户在咨询前，就能判断你是否值得托付。</h2>
+          <p class="lead">企业服务的核心转化变量不是视觉“高级感”，而是可验证：真实团队、真实流程、真实边界、真实文件样例。</p>
+          <div class="trust-checklist">
+            <div><i>✓</i><p><strong>公开双地团队与职责。</strong> 谁负责中文沟通、谁负责印尼本地执行、谁审核专业结论。</p></div>
+            <div><i>✓</i><p><strong>展示脱敏交付样例。</strong> 路线图、材料清单、进度周报、合规日历与管理层报告。</p></div>
+            <div><i>✓</i><p><strong>明确“不承诺事项”。</strong> 不承诺审核机构必批、不用“包开户”“包许可”等高风险话术。</p></div>
+            <div><i>✓</i><p><strong>标注内容更新日期。</strong> 政策类文章保留版本与审核人，降低过时信息风险。</p></div>
+          </div>
+        </div>
+        <div class="trust-cards">
+          <article class="trust-card"><span class="result-pill">项目透明度</span><div class="big">一项目一工作台</div><p>里程碑、待办、文件、沟通记录与风险提示统一归档。</p></article>
+          <article class="trust-card"><div class="big">SLA</div><h3>响应机制</h3><p>按咨询、执行、紧急事项分别定义响应等级。</p></article>
+          <article class="trust-card"><div class="big">4类</div><h3>费用拆分</h3><p>服务费、政府费、第三方费、可选增值项分开列示。</p></article>
+          <article class="trust-card"><div class="big">3语</div><h3>工作文件</h3><p>关键文件按中文、英文或印尼语场景交付。</p></article>
+          <article class="trust-card"><div class="big">版本</div><h3>政策内容</h3><p>发布日期、更新日、适用范围与免责声明可见。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft" id="insights">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">知识中心既做SEO，也做销售教育</span><h2>围绕决策问题组织内容，而不是写泛泛的“印尼市场很大”。</h2><p class="lead">内容入口按“我要进入 / 我要卖产品 / 我要雇人 / 我要合规 / 我遇到问题”分类，并在文章内嵌下一步诊断。</p></div></div>
+        <div class="insight-grid">
+          <article class="insight-card featured"><div class="insight-type">旗舰指南 · Lead Magnet</div><h3 style="font-size:26px">《中国企业落地印尼：从主体到实际经营的100项检查清单》</h3><p>用于公众号、搜索、社群和销售首次触达；下载前只收集公司、行业、阶段与联系方式。</p><div class="insight-bottom"><span>PDF / Excel清单</span><button class="btn btn-light" type="button" data-toast="演示：此处打开轻量表单，提交后自动发送资料并写入CRM">获取清单</button></div></article>
+          <article class="insight-card"><div class="insight-type">问题型内容</div><h3>为什么公司注册好了，银行账户仍可能开不下来？</h3><p>从业务实质、资金来源、董事安排与材料一致性解释前置条件。</p><div class="insight-bottom"><span>银行开户</span><span>6 min →</span></div></article>
+          <article class="insight-card"><div class="insight-type">场景型内容</div><h3>中国消费品进入印尼，需要同时考虑哪些许可与标签？</h3><p>用“产品—主体—进口—渠道”四层地图解释落地路径。</p><div class="insight-bottom"><span>产品合规</span><span>8 min →</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-wrap">
+      <div class="container">
+        <div class="cta">
+          <div><span class="eyebrow">从一次可行性判断开始</span><h2>告诉我们你的行业与阶段，先拿到一张落地路线图。</h2><p class="muted" style="margin-bottom:0">不要求先购买服务；首次沟通聚焦可行性、风险和下一步。</p></div>
+          <div class="cta-actions"><button class="btn btn-primary btn-lg" type="button" data-open-assessment>免费评估</button><button class="btn btn-ghost btn-lg" type="button" data-open-contact>联系中文顾问</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="#top"><span class="brand-mark"></span><span><span class="brand-name">NusaBridge 努沙桥</span><br><span class="brand-sub" style="color:rgba(255,255,255,.42)">INDONESIA BUSINESS DESK</span></span></a><p>为计划进入或已经运营于印度尼西亚的中国企业，提供从决策到持续经营的一体化落地支持。</p></div>
+        <div><h4>企业服务</h4><a href="#services">公司设立</a><a href="#services">税务合规</a><a href="#services">许可认证</a><a href="#services">银行开户</a></div>
+        <div><h4>解决方案</h4><a href="#journey">进入前评估</a><a href="#journey">业务启动</a><a href="#journey">持续运营</a><a href="#journey">扩张与融资</a></div>
+        <div><h4>资源</h4><a href="#cases">案例</a><a href="#insights">指南</a><a href="#trust">信任中心</a><a href="#top">隐私政策</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 NusaBridge. UI/UX concept prototype.</span><span>重要提示：网站内容仅作一般信息与前期判断，不构成法律、税务、投资或金融承诺；具体结论以专业评估与主管机构审核为准。</span></div>
+    </div>
+  </footer>
+
+  <div class="floating-contact">
+    <div class="contact-pop" id="contactPop">
+      <div class="contact-head"><div><strong>联系中文顾问</strong><div class="micro">建议保持两个入口，避免选择过多</div></div><button type="button" data-close-contact>×</button></div>
+      <div class="contact-option"><i>微</i><div><strong>添加企业微信</strong><p>扫码后自动发送需求预问卷</p></div></div>
+      <div class="contact-option"><i>话</i><div><strong>预约15分钟沟通</strong><p>选择时间并同步诊断结果</p></div></div>
+      <div class="micro" style="margin-top:12px">二维码在正式站点应展示顾问姓名、职位与企业认证，降低“私人号”不信任。</div>
+    </div>
+    <button class="contact-fab" type="button" aria-label="联系顾问" data-open-contact>✦</button>
+  </div>
+
+  <div class="overlay" id="assessmentOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="assessmentTitle">
+      <div class="modal-head">
+        <div class="modal-head-row"><div><div class="micro">免费 · 约30秒 · 无需先留联系方式</div><strong id="assessmentTitle">印尼落地需求诊断</strong></div><button class="modal-close" type="button" data-close-assessment aria-label="关闭">×</button></div>
+        <div class="modal-progress"><i class="done"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="modal-body">
+        <section class="question active" data-step="0">
+          <h2>你现在处于哪个阶段？</h2><p class="desc">这决定我们先判断“能不能做”，还是直接进入执行清单。</p>
+          <div class="option-grid">
+            <button class="option" data-value="正在评估"><i>?</i><span>正在评估<small>还未确定主体或进入方式</small></span></button>
+            <button class="option" data-value="准备设立"><i>企</i><span>准备设立<small>已决定进入印尼</small></span></button>
+            <button class="option" data-value="已设立未运营"><i>启</i><span>已设立未运营<small>账户、许可或团队仍未就绪</small></span></button>
+            <button class="option" data-value="已在运营"><i>运</i><span>已在运营<small>需要合规、扩张或解决问题</small></span></button>
+          </div>
+          <div class="modal-actions"><span></span><div class="right"><button class="btn btn-primary" type="button" data-next disabled>下一步 →</button></div></div>
+        </section>
+        <section class="question" data-step="1">
+          <h2>你的主要业务是什么？</h2><p class="desc">行业不同，外资准入、产品监管、许可与用工路径会显著不同。</p>
+          <div class="option-grid">
+            <button class="option" data-value="跨境电商/消费品"><i>商</i><span>跨境电商 / 消费品<small>进口、销售、渠道与产品合规</small></span></button>
+            <button class="option" data-value="制造业"><i>造</i><span>制造业<small>工厂、园区、许可、用工与供应链</small></span></button>
+            <button class="option" data-value="科技/互联网"><i>科</i><span>科技 / 互联网<small>本地运营、数据、支付或平台业务</small></span></button>
+            <button class="option" data-value="专业服务/其他"><i>服</i><span>专业服务 / 其他<small>咨询、工程、贸易及其他场景</small></span></button>
+          </div>
+          <div class="modal-actions"><button class="btn btn-ghost" type="button" data-prev>← 上一步</button><div class="right"><button class="btn btn-primary" type="button" data-next disabled>下一步 →</button></div></div>
+        </section>
+        <section class="question" data-step="2">
+          <h2>你最希望先解决什么？</h2><p class="desc">结果页会按优先级给出推荐工作流，而不是把所有服务都推给你。</p>
+          <div class="option-grid">
+            <button class="option" data-value="公司注册"><i>企</i><span>公司注册与架构<small>主体、股权、治理与基础登记</small></span></button>
+            <button class="option" data-value="产品上市/进出口"><i>关</i><span>产品上市 / 进出口<small>许可、认证、进口与渠道</small></span></button>
+            <button class="option" data-value="开户/资金"><i>银</i><span>开户 / 资金<small>KYC、收付款与资金闭环</small></span></button>
+            <button class="option" data-value="合规/问题处理"><i>税</i><span>合规 / 问题处理<small>税务、申报、用工或整改</small></span></button>
+          </div>
+          <div class="modal-actions"><button class="btn btn-ghost" type="button" data-prev>← 上一步</button><div class="right"><button class="btn btn-primary" type="button" data-next disabled>生成结果 →</button></div></div>
+        </section>
+        <section class="question" data-step="3">
+          <h2>你的初步落地建议</h2><p class="desc">以下为基于当前选择生成的概要。正式执行前仍需核验业务、股权、产品与交易文件。</p>
+          <div class="result-summary"><div><span class="result-pill" id="resultStage">准备设立</span><h3 id="resultTitle" style="margin:8px 0 0">推荐：主体 + 许可 + 资金三线并行</h3></div><div class="score-badge"><strong>初评</strong></div></div>
+          <div class="result-list" id="resultList"></div>
+          <div class="modal-actions"><button class="btn btn-ghost" type="button" data-prev>← 修改选择</button><div class="right"><button class="btn btn-primary" type="button" data-next>获取完整清单 →</button></div></div>
+        </section>
+        <section class="question" data-step="4">
+          <h2>把完整路线图发给你</h2><p class="desc">销售顾问会同时收到你前面的选择，不需要你再次复述。</p>
+          <form id="leadForm">
+            <div class="form-grid">
+              <div class="field"><label for="company">公司名称</label><input id="company" name="company" placeholder="例如：深圳某某科技" required></div>
+              <div class="field"><label for="name">怎么称呼你</label><input id="name" name="name" placeholder="姓名" required></div>
+              <div class="field"><label for="contact">手机 / 微信</label><input id="contact" name="contact" placeholder="便于发送清单" required></div>
+              <div class="field"><label for="timeline">计划启动时间</label><select id="timeline" name="timeline"><option>1个月内</option><option>1–3个月</option><option>3–6个月</option><option>仍在评估</option></select></div>
+              <div class="field full"><label for="note">补充说明（选填）</label><textarea id="note" name="note" rows="3" placeholder="产品、目标城市、当前遇到的问题等"></textarea></div>
+            </div>
+            <div class="privacy-note">提交即表示同意仅将信息用于本次企业服务咨询。正式站点需链接至隐私政策，并配置数据保留期限与删除机制。</div>
+            <div class="modal-actions"><button class="btn btn-ghost" type="button" data-prev>← 返回结果</button><div class="right"><button class="btn btn-primary" type="submit">提交并获取路线图</button></div></div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="serviceDrawer" aria-hidden="true">
+    <div class="drawer-top"><strong>服务详情</strong><button class="drawer-close" type="button" aria-label="关闭" data-close-drawer>×</button></div>
+    <div class="drawer-body">
+      <div class="drawer-icon" id="drawerIcon">企</div>
+      <span class="result-pill" id="drawerTag">主体搭建</span>
+      <h2 id="drawerTitle">公司设立与架构</h2>
+      <p class="lead" id="drawerDesc">从业务目标倒推主体、经营范围、股权与治理，确保后续许可、开户和运营可以衔接。</p>
+      <div class="drawer-section"><h4>适合哪些团队</h4><div class="drawer-list" id="drawerFit"></div></div>
+      <div class="drawer-section"><h4>标准交付物</h4><div class="drawer-list" id="drawerDeliverables"></div></div>
+      <div class="drawer-section"><h4>项目如何推进</h4><div class="drawer-list"><span>① 30分钟需求澄清与初步预审</span><span>② 明确范围、材料、费用边界与责任人</span><span>③ 按里程碑推进，每周更新风险与待办</span><span>④ 文件归档、交付说明与后续合规衔接</span></div></div>
+      <div class="drawer-warning" id="drawerWarning">专业边界：审批、开户与认证结果由主管机构或银行独立审核，本服务不作“必批”承诺。</div>
+      <div style="display:flex;gap:10px;margin-top:22px"><button class="btn btn-primary" style="flex:1" type="button" data-open-assessment>评估是否适用</button><button class="btn btn-ghost" type="button" data-open-contact>联系顾问</button></div>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast">已完成</div>
+
+  <script>
+    const $ = (s, root=document) => root.querySelector(s);
+    const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+
+    const toast = (message) => {
+      const el = $('#toast');
+      el.textContent = message;
+      el.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+    };
+
+    $$('[data-toast]').forEach(el => el.addEventListener('click', () => toast(el.dataset.toast)));
+
+    const contactPop = $('#contactPop');
+    const mobileNav = $('#mobileNav');
+    const mobileNavButton = $('[data-open-mobile-nav]');
+    if(mobileNavButton){
+      mobileNavButton.addEventListener('click', () => {
+        const open = mobileNav.classList.toggle('show');
+        mobileNav.setAttribute('aria-hidden', String(!open));
+        mobileNavButton.setAttribute('aria-expanded', String(open));
+      });
+      $$('a', mobileNav).forEach(a => a.addEventListener('click', () => {
+        mobileNav.classList.remove('show');
+        mobileNav.setAttribute('aria-hidden','true');
+        mobileNavButton.setAttribute('aria-expanded','false');
+      }));
+    }
+    $$('[data-open-contact]').forEach(el => el.addEventListener('click', () => contactPop.classList.toggle('show')));
+    $$('[data-close-contact]').forEach(el => el.addEventListener('click', () => contactPop.classList.remove('show')));
+
+    // Stage tabs
+    $$('.stage-btn').forEach(btn => btn.addEventListener('click', () => {
+      $$('.stage-btn').forEach(b => b.classList.remove('active'));
+      $$('.stage-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      $(`[data-stage-panel="${btn.dataset.stage}"]`).classList.add('active');
+    }));
+
+    // Case filters
+    $$('.chip[data-filter]').forEach(btn => btn.addEventListener('click', () => {
+      $$('.chip[data-filter]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      $$('[data-case]').forEach(card => {
+        card.style.display = f === 'all' || card.dataset.case === f ? 'flex' : 'none';
+      });
+    }));
+
+    // Assessment modal
+    const overlay = $('#assessmentOverlay');
+    const questions = $$('.question', overlay);
+    const progressBars = $$('.modal-progress i', overlay);
+    let currentStep = 0;
+    const answers = {};
+
+    function showStep(step){
+      currentStep = Math.max(0, Math.min(step, questions.length-1));
+      questions.forEach((q,i)=>q.classList.toggle('active', i===currentStep));
+      progressBars.forEach((b,i)=>b.classList.toggle('done', i<=currentStep));
+      $('.modal',overlay).scrollTop = 0;
+      if(currentStep===3) renderResult();
+    }
+    function openAssessment(){
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden','false');
+      document.body.classList.add('no-scroll');
+      contactPop.classList.remove('show');
+      if(mobileNav){ mobileNav.classList.remove('show'); mobileNav.setAttribute('aria-hidden','true'); }
+    }
+    function closeAssessment(){
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+      document.body.classList.remove('no-scroll');
+    }
+    $$('[data-open-assessment]').forEach(el => el.addEventListener('click', () => {
+      closeDrawer();
+      openAssessment();
+    }));
+    $$('[data-close-assessment]').forEach(el => el.addEventListener('click', closeAssessment));
+    overlay.addEventListener('click', e => { if(e.target===overlay) closeAssessment(); });
+
+    questions.slice(0,3).forEach((q, step) => {
+      const next = $('[data-next]', q);
+      $$('.option', q).forEach(option => option.addEventListener('click', () => {
+        $$('.option', q).forEach(o=>o.classList.remove('selected'));
+        option.classList.add('selected');
+        answers[step] = option.dataset.value;
+        next.disabled = false;
+      }));
+    });
+    $$('[data-next]',overlay).forEach(btn => btn.addEventListener('click', () => showStep(currentStep+1)));
+    $$('[data-prev]',overlay).forEach(btn => btn.addEventListener('click', () => showStep(currentStep-1)));
+
+    function renderResult(){
+      const stage = answers[0] || '正在评估';
+      const industry = answers[1] || '专业服务/其他';
+      const goal = answers[2] || '公司注册';
+      $('#resultStage').textContent = `${stage} · ${industry}`;
+      const titleMap = {
+        '产品上市/进出口':'推荐：产品合规与进口路径先行',
+        '开户/资金':'推荐：先做业务实质与KYC预审',
+        '合规/问题处理':'推荐：先完成合规健康检查与风险分级',
+        '公司注册':'推荐：主体、许可、资金三线联动'
+      };
+      $('#resultTitle').textContent = titleMap[goal] || titleMap['公司注册'];
+      const items = [];
+      items.push({icon:'诊',title:'落地可行性与准入预审',desc:`核验${industry}在当前业务模式下的主体、经营范围与前置条件。`,priority:'优先'});
+      if(goal==='产品上市/进出口' || industry==='跨境电商/消费品') items.push({icon:'证',title:'产品监管与进口许可地图',desc:'按产品、成分、标签、渠道与进口责任主体建立清单。',priority:'优先'});
+      if(goal==='开户/资金' || stage==='已设立未运营') items.push({icon:'银',title:'银行KYC与资金路径预审',desc:'准备业务证明、资金来源、董事安排及问答材料。',priority:'关键'});
+      if(goal==='合规/问题处理' || stage==='已在运营') items.push({icon:'税',title:'财税与法定合规健康检查',desc:'识别历史申报、公司文件、用工及交易一致性风险。',priority:'关键'});
+      items.push({icon:'路',title:'分阶段实施路线图',desc:'列出必须先做、可并行和可以后做的事项，并标注客户配合项。',priority:'输出'});
+      $('#resultList').innerHTML = items.slice(0,4).map(x=>`<div class="result-item"><i>${x.icon}</i><div><strong>${x.title}</strong><p>${x.desc}</p></div><span class="priority">${x.priority}</span></div>`).join('');
+    }
+
+    $('#leadForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      console.log('Prototype lead payload', {...answers, ...data});
+      closeAssessment();
+      toast('演示提交成功：正式版将发送路线图并同步CRM');
+      e.target.reset();
+      showStep(0);
+      questions.slice(0,3).forEach(q=>{
+        $$('.option',q).forEach(o=>o.classList.remove('selected'));
+        $('[data-next]',q).disabled=true;
+      });
+    });
+
+    // Service drawer
+    const serviceData = {
+      company:{icon:'企',tag:'主体搭建',title:'公司设立与架构',desc:'从业务目标倒推主体、经营范围、股权与治理，确保后续许可、开户和运营可以衔接。',fit:['准备首次进入印尼的中国企业','已有合作伙伴，计划成立合资或独资主体','公司已设立但结构、经营范围或文件需要调整'],deliverables:['主体与股权结构建议书','经营范围与业务活动映射表','设立/变更文件及归档清单','开户、税务、许可的后续衔接清单']},
+      tax:{icon:'税',tag:'持续合规',title:'财税、申报与公司秘书',desc:'建立一套管理层看得懂、执行团队用得上的合规日历，降低跨境运营中的遗漏和口径不一致。',fit:['公司已设立，需要长期记账和申报','中国总部需要月度经营与税务信息','历史记录不完整或存在补报、整改需求'],deliverables:['月度/年度合规日历','记账、申报与凭证归档','公司法定文件维护与变更','管理层摘要与风险提示']},
+      license:{icon:'证',tag:'经营准入',title:'行业许可与产品认证',desc:'从实际经营场景出发识别行业许可、产品注册、标签和认证要求，避免主体成立后仍无法合法销售。',fit:['消费品、食品、化妆品、设备等产品进入印尼','制造、建筑、物流、平台等受监管业务','已有许可但业务、产品或地点发生变化'],deliverables:['监管与许可清单','产品/经营场景差距分析','材料模板与申报协同','获批后的续期与持续合规提醒']},
+      bank:{icon:'银',tag:'资金闭环',title:'银行开户与资金服务',desc:'先评估业务实质与KYC材料，再匹配银行和账户场景；强调条件管理，不做“包开户”承诺。',fit:['新设公司需要运营账户','开户被要求补件或解释业务','需要规划跨境收付款与内部资金管理'],deliverables:['KYC差距诊断','银行匹配与材料清单','开户预约和问答预演','账户启用后的操作交接']},
+      trade:{icon:'关',tag:'跨境贸易',title:'进出口与海关落地',desc:'把商品、进口主体、监管许可、单证、报关和本地履约串成完整链路。',fit:['从中国向印尼出口产品','在印尼设仓、分销或本地交付','遇到商品分类、许可或清关问题'],deliverables:['商品监管条件预审','进口主体与许可路径','标准单证和操作SOP','首票协同与异常处理机制']},
+      hr:{icon:'人',tag:'团队落地',title:'签证、用工与薪酬',desc:'覆盖外籍人员与本地员工的身份、合同、社保、薪酬与劳动合规，避免人员已到岗但手续脱节。',fit:['派遣中国管理或技术人员赴印尼','计划招聘本地团队','需要薪酬、社保、合同与员工变更支持'],deliverables:['岗位与人员路径预审','签证/许可材料协调','劳动合同与入离职文件','薪酬、社保和月度合规支持']},
+      market:{icon:'图',tag:'决策支持',title:'市场进入与选址',desc:'在投入注册和租赁前，先把进入模式、地点、合作伙伴、许可和运营成本放在同一框架评估。',fit:['尚未决定是否进入印尼','在贸易、经销、合资、独资之间比较','需要筛选城市、园区或本地合作方'],deliverables:['进入模式比较矩阵','城市/园区筛选维度','落地前风险清单','90天启动计划']},
+      finance:{icon:'融',tag:'扩张与交易',title:'股权变更、融资与资金方案',desc:'支持增资、股权转让、重组、融资尽调与金融资源对接，并关注公司、税务与资金路径的一致性。',fit:['引入新股东或本地合作伙伴','计划增资、股转或集团重组','需要准备融资或银行尽调资料'],deliverables:['交易结构与步骤清单','公司批准及变更文件','财税影响与资料准备','尽调资料室目录']},
+      incentive:{icon:'策',tag:'政策资源',title:'园区、激励与产业资源',desc:'根据项目行业、投资、地点和用工等条件筛选政策与资源，先做适用性初筛再进入申报。',fit:['制造、能源、数字、出口等项目','在多个园区或地区之间比较','希望了解可适用的政策和产业资源'],deliverables:['适用性初筛报告','政策与园区比较表','申报材料任务表','机构与合作资源对接记录']}
+    };
+    const drawer = $('#serviceDrawer');
+    const drawerOverlay = $('#drawerOverlay');
+    function openDrawer(key){
+      const d = serviceData[key] || serviceData.company;
+      $('#drawerIcon').textContent=d.icon; $('#drawerTag').textContent=d.tag; $('#drawerTitle').textContent=d.title; $('#drawerDesc').textContent=d.desc;
+      $('#drawerFit').innerHTML=d.fit.map(x=>`<span>✓ ${x}</span>`).join('');
+      $('#drawerDeliverables').innerHTML=d.deliverables.map(x=>`<span>✓ ${x}</span>`).join('');
+      drawer.classList.add('show'); drawerOverlay.classList.add('show'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('no-scroll');
+    }
+    function closeDrawer(){drawer.classList.remove('show');drawerOverlay.classList.remove('show');drawer.setAttribute('aria-hidden','true');if(!overlay.classList.contains('show')) document.body.classList.remove('no-scroll')}
+    $$('[data-service]').forEach(el=>el.addEventListener('click',()=>openDrawer(el.dataset.service)));
+    $$('[data-close-drawer]').forEach(el=>el.addEventListener('click',closeDrawer));
+    drawerOverlay.addEventListener('click',closeDrawer);
+
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAssessment();closeDrawer();contactPop.classList.remove('show');if(mobileNav){mobileNav.classList.remove('show');mobileNav.setAttribute('aria-hidden','true')}}});
+  </script>
+</body>
+</html>
